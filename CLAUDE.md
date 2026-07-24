@@ -14,14 +14,13 @@ The managed binding **`LibCecSharp`** lives in `src/dotnetlib` in this repo. It 
 
 ## Submodules
 
-Both submodules are **only used by the Windows build** — init them there first:
+The one remaining submodule, `src/dotnet` (the cec-dotnet .NET apps), is **only used by the Windows build** — init it there first:
 
 ```
 git submodule update --init --recursive
 ```
 
-- `src/dotnet` — the cec-dotnet .NET apps (Windows installer only).
-- `support` — Windows driver installers / signing helpers (libcec-support repo). Also holds the cmake flag overrides (`support\windows\cmake\{c,cxx}-flag-overrides.cmake`) that `create-installer.py` passes to **every** Windows cmake run, so it's needed to compile at all, not just to package.
+The Windows build helpers formerly in the `support` submodule now live **directly in the tree** under `support/`: the prebuilt driver installers + `libusb0.dll` that `create-installer.py` stages into the build, and the cmake flag overrides (`support\windows\cmake\{c,cxx}-flag-overrides.cmake`) it passes to **every** Windows cmake run — so `support/` is needed to compile at all, not just to package. The `*.dll`/`*.exe` there are force-tracked past the global ignores in `.gitignore`.
 
 A Linux/OS X/BSD build works from a non-recursive clone with no submodules checked out at all.
 
